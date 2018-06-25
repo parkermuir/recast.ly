@@ -1,8 +1,10 @@
-const VideoList = (exampleVideoList) => {
+const VideoList = (props) => {
+  // console.log(props);
   return (
     <div className="video-list">
-      {everyVideoList.map(item =>
-        <VideoListEntry vid={item} />
+      {props.videos.map(item => {
+        return  <VideoListEntry video={item} />;
+      }
       )}
 
     </div>
