@@ -5,6 +5,8 @@ class App extends React.Component {
       videos: window.exampleVideoData,
       currentVideo: window.exampleVideoData[0]
     };
+
+    this.onVideoEntryClick = this.onVideoEntryClick.bind(this);
   }
 
   onVideoEntryClick(newCurrent) {
