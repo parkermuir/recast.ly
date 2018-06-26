@@ -24,7 +24,7 @@ class App extends React.Component {
       contentType: 'application/json',
       success: (data) => {
         data = data.items;
-        console.log('data: ', data);
+        console.log('dataaa: ', data);
         this.setState({videos: data});
 
         callback(data);
