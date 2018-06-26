@@ -2,11 +2,45 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      videos: window.exampleVideoData,
+      videos: [],
       currentVideo: window.exampleVideoData[0]
     };
-
     this.onVideoEntryClick = this.onVideoEntryClick.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  searchYouTube(options, callback) {
+    // console.log(options)
+    $.ajax({
+      url: 'https://www.googleapis.com/youtube/v3/search',
+      type: 'GET',
+      data: {
+        q: options.query,
+        maxResults: options.max,
+        key: window.YOUTUBE_API_KEY,
+        type: 'video',
+        part: 'snippet'
+      },
+      contentType: 'application/json',
+      success: (data) => {
+        data = data.items;
+        console.log('data: ', data);
+        this.setState({videos: data});
+
+        callback(data);
+      },
+      failure: () => {
+        console.log('GET has failed');
+      }
+    });
+  }
+
+  handleSubmit(searchText) {
+    console.log('handling submit now');
+    this.searchYouTube({
+      query: searchText,
+      max: 5
+    });
   }
 
   onVideoEntryClick(newCurrent) {
@@ -20,7 +54,7 @@ class App extends React.Component {
       <div>
         <nav className="navbar">
           <div className="col-md-6 offset-md-3">
-            <div><h5><em>search</em> <Search /> </h5></div>
+            <div><h5><em>search</em> <Search submithandler={this.handleSubmit}/> </h5></div>
           </div>
         </nav>
         <div className="row">
