@@ -7,6 +7,12 @@ class App extends React.Component {
     };
   }
 
+  onVideoEntryClick(newCurrent) {
+    this.setState({
+      currentVideo: newCurrent
+    });
+  }
+
   render() {
     return (
       <div>
@@ -20,7 +26,7 @@ class App extends React.Component {
             <div><h5><em>videoPlayer</em> <VideoPlayer video={this.state.currentVideo} /> </h5></div>
           </div>
           <div className="col-md-5">
-            <div><h5><em>videoList</em> <VideoList videos={this.state.videos} /> </h5></div>
+            <div><h5><em>videoList</em> <VideoList videos={this.state.videos} clickhandler={this.onVideoEntryClick} /> </h5></div>
           </div>
         </div>
       </div>
